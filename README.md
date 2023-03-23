@@ -1,1 +1,2 @@
-# hackathon-app
+# hackathon-app for USF
+name tbd
