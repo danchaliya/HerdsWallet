@@ -6,11 +6,31 @@ import logo from "../images/bull.png"
 import { useEffect, useState } from 'react';
 
 function BrandNavbar() {
-  // const [loginStatus, setLogin] = useState("NotLoggedIn");
-  // const changeLogin = () => 
-  // {
-  //   setLogin("LoggedIn");
-  // }
+
+  let authenticated = true
+  //(localStorage.getItem("access_token") != null)
+
+  function LoggedInLinks()
+  {
+    return <Nav>
+      <Nav.Link href="#login">Login</Nav.Link>
+      <Nav.Link eventKey={2} href="#signup">
+        Sign up
+      </Nav.Link>
+    </Nav>
+  
+  }
+
+  function NotLoggedInLinks()
+  {
+    return <Nav>
+      <Nav.Link href="#login">Logout</Nav.Link>
+      <Nav.Link eventKey={2} href="#signup">
+        Logout
+      </Nav.Link>
+    </Nav>
+    
+  }
 
   return (
     <>
@@ -26,17 +46,7 @@ function BrandNavbar() {
             />{' '}
             Herds Wallet
           </Navbar.Brand>
-          <Nav>
-            {/* <Nav.Link href="#login">Login</Nav.Link> */}
-            <Link to={`/login`}>Log In</Link>
-            <Link to={`/signup`}>Sign Up</Link>
-            {/* <Nav.Link eventKey={2} href="#signup">
-              Sign up
-            </Nav.Link> */}
-          </Nav>
-          {/* <div>
-            <button onClick={changeLogin}> Login </button>
-          </div> */}
+            {authenticated ? <LoggedInLinks/> : <NotLoggedInLinks/>}
         </Container>
       </Navbar>
 
