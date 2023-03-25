@@ -1,8 +1,9 @@
 import '../styles/landing.scss';
+import BrandNavbar from '../components/navbar'
 
 function Landing() {
   return (
-    <h1>test</h1>
+    <BrandNavbar/>
   );
 }
 
