@@ -1,9 +1,11 @@
 import './styles/App.scss';
-import BrandExample from "./components/navbar.js"
+import {BrandNavbar} from "./components/navbar.js"
+//import categoryCard from "./components/categoryCard.js"
+
 
 function App() {
   return (
-    <BrandExample/>
+    <BrandNavbar/>
   );
 }
 
