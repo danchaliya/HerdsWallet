@@ -1,5 +1,5 @@
-# hackathon-app for USF
-name tbd
+# HerdsWallet
+
 
 ## Local Deployment
 - `cd hackabull-23`
