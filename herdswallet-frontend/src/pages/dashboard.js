@@ -1,6 +1,8 @@
 
 export default function Dashboard() {
     return(
-        <h1>Dashboard</h1>
+        <>
+            <Helmet> <title>Herds Wallet | Dashboard</title> </Helmet>
+        </>
     )
 }
