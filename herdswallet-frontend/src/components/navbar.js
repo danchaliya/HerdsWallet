@@ -2,8 +2,15 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import logo from "../images/bull.png"
+import { useEffect, useState } from 'react';
 
-function BrandExample() {
+function BrandNavbar() {
+  // const [loginStatus, setLogin] = useState("NotLoggedIn");
+  // const changeLogin = () => 
+  // {
+  //   setLogin("LoggedIn");
+  // }
+
   return (
     <>
       <Navbar bg="dark" variant="dark">
@@ -16,7 +23,7 @@ function BrandExample() {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-            Herdswallet
+            Herds Wallet
           </Navbar.Brand>
           <Nav>
             <Nav.Link href="#login">Login</Nav.Link>
@@ -24,6 +31,9 @@ function BrandExample() {
               Sign up
             </Nav.Link>
           </Nav>
+          {/* <div>
+            <button onClick={changeLogin}> Login </button>
+          </div> */}
         </Container>
       </Navbar>
 
@@ -31,4 +41,4 @@ function BrandExample() {
   );
 }
 
-export default BrandExample;
+export {BrandNavbar};
