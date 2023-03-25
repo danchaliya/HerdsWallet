@@ -3,20 +3,15 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Outlet, Link } from "react-router-dom";
 import logo from "../images/bull.png"
-import { useEffect, useState } from 'react';
 
 function BrandNavbar() {
 
-  let authenticated = true
-  //(localStorage.getItem("access_token") != null)
+  let authenticated = (localStorage.getItem("access_token") != null)
 
   function LoggedInLinks()
   {
     return <Nav>
-      <Nav.Link href="#login">Login</Nav.Link>
-      <Nav.Link eventKey={2} href="#signup">
-        Sign up
-      </Nav.Link>
+          <Link to={"/signup"}>Log out</Link>
     </Nav>
   
   }
@@ -24,10 +19,8 @@ function BrandNavbar() {
   function NotLoggedInLinks()
   {
     return <Nav>
-      <Nav.Link href="#login">Logout</Nav.Link>
-      <Nav.Link eventKey={2} href="#signup">
-        Logout
-      </Nav.Link>
+          <Link to={"/login"}>Log In</Link>
+          <Link to={"/signup"}>Sign Up</Link>
     </Nav>
     
   }
