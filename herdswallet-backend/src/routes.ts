@@ -17,6 +17,7 @@ export const registerRoutes = (app: express.Express) => {
 
       // Hash the user's password using bcrypt.
       const hashedPassword = await bcrypt.hash(password, 10);
+      console.log({hashedPassword})
 
       // Create a new user in the database.
       const newUser = await Users.create({
@@ -29,11 +30,11 @@ export const registerRoutes = (app: express.Express) => {
       });
 
       // Return success message to user.
-      res.json({ message: "User registration successful." });
+      return res.json({ message: "User registration successful." });
     } catch (error) {
       console.error(error);
       // Return error message to user.
-      res.status(500).json({ message: "Unable to register user." });
+      return res.status(500).json({ message: "Unable to register user.", error });
     }
   });
 

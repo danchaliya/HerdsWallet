@@ -13,6 +13,13 @@ const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
 const [phone, setPhone] = useState('');
 
+const [tempfirstName, setTFirstName] = useState('');
+const [templastName, setTLastName] = useState('');
+const [tempEmail, setTEmail] = useState('');
+const [tempUsername, setTUsername] = useState('');
+const [tempPassword, setTPassword] = useState('');
+const [tempPhone, setTPhone] = useState('');
+
 const [validated, setValidated] = useState(false);
 const [isEmailValidated, setEmailValidation] = useState(false);
 const [isPasswordInvalid, setPasswordInvalidation] = useState(true);
@@ -20,7 +27,17 @@ const [isPasswordValid, setPasswordValidation] = useState(false);
 const [isPhoneInvalid, setPhoneInvalidation] = useState(true);
 const [isPhoneValid, setPhoneValidation] = useState(false)
 
+    function passTemps(tempfirstName, templastName, tempEmail, tempUsername, tempPassword, tempPhone){
+        setFirstName(tempfirstName)
+        setLastName(templastName)
+        setEmail(tempEmail)
+        setUsername(tempUsername)
+        setPassword(tempPassword)
+        setPhone(tempPhone)
+    }
+
   const handleSubmit = (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
 
     validateEmail();
@@ -41,34 +58,20 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
     bodyFormData.append('lastName', lastName);
     bodyFormData.append('phoneNumber', phone);
 
-    // axios.post('http://localhost:7002/register', {
-    //     username: username,
-    //     email: email,
-    //     password: password,
-    //     firstName: firstName,
-    //     lastName: lastName,
-    //     phoneNumber: phone
-    // })
-    axios({
-        method: "post",
-        url: 'http://localhost:7002/register',
-        data: bodyFormData,
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-        .then(response => {
-            console.log("POST success!");
-            console.log(response)
-        })
-        .catch(error => {
-            console.log("POST failed!");
-            console.log(error)
-        })
-  };
+    fetch('http://localhost:7002/register', {
+        method: "POST",
+        body: bodyFormData,
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    }).then(response => response.json()).then((data) => {
+        console.log(`POST success!`, data);
+    }).catch(err => {
+        console.log(`Post failed :( ${err})`);
+    });
+    
 
-//   const handleEmailChange = (event) => {
-//     setEmail(event.target.value);
-//     validateEmail();
-//   } 
+  };
 
   const validateEmail = () => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -78,11 +81,6 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
         setEmailValidation(true);
     }
   }
-
-//   const handlePasswordChange = (event) => {
-//     setPassword(event.target.value);
-//     validatePassword()
-//   } 
 
   const validatePassword = () => {
     console.log(password)
@@ -121,8 +119,8 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
                 <Form.Control
                     required
                     type="text"
-                    value={firstName}
-                    onChange={event => {setFirstName(event.target.value)}}/>
+                    value={tempfirstName}
+                    onChange={event => {setTFirstName(event.target.value)}}/>
                 <Form.Control.Feedback type='invalid'>
                     First name is required.
                 </Form.Control.Feedback>
@@ -133,8 +131,8 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
                 <Form.Control
                     required
                     type="text"
-                    value={lastName}
-                    onChange={event => {setLastName(event.target.value)}}/>
+                    value={templastName}
+                    onChange={event => {setTLastName(event.target.value)}}/>
                 <Form.Control.Feedback type='invalid'>
                     Last name is required.
                 </Form.Control.Feedback>
@@ -144,9 +142,9 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
             <Form.Label>Email Address</Form.Label>
             <Form.Control
                 required
-                value={email}
+                value={tempEmail}
                 type="email"
-                onChange={event => {setEmail(event.target.value)}}
+                onChange={event => {setTEmail(event.target.value)}}
             />
             <Form.Control.Feedback type='invalid'>
                 Enter a valid email.
@@ -158,8 +156,8 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
             <Form.Control
                 required
                 type="text"
-                value={username}
-                onChange={event => {setUsername(event.target.value)}}/>
+                value={tempUsername}
+                onChange={event => {setTUsername(event.target.value)}}/>
             <Form.Control.Feedback type='invalid'>
                 Username is required.
             </Form.Control.Feedback>
@@ -169,11 +167,11 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
             <Form.Label>Password</Form.Label>
             <Form.Control
                 required
-                value={password}
+                value={tempPassword}
                 type="password"
                 isValid={isPasswordValid}
                 isInvalid={isPasswordInvalid}
-                onChange={event => {setPassword(event.target.value); console.log(password); validatePassword()}}
+                onChange={event => {setTPassword(event.target.value); console.log(password); validatePassword()}}
             />
             <Form.Control.Feedback type='invalid'>
                 Enter a valid password.
@@ -191,11 +189,11 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
             <Form.Label>Phone Number</Form.Label>
             <Form.Control
                 required
-                value={phone}
+                value={tempPhone}
                 type="text"
                 isValid={isPhoneValid}
                 isInvalid={isPhoneInvalid}
-                onChange={event => {setPhone(event.target.value); console.log(phone); validatePhone()}}
+                onChange={event => {setTPhone(event.target.value); console.log(phone); validatePhone()}}
             />
             <Form.Control.Feedback type='invalid'>
                 Enter a 10-digit phone number.
@@ -208,7 +206,7 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
             </Form.Text>
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" onClick={() => passTemps(tempfirstName, templastName, tempEmail, tempUsername, tempPassword, tempPhone)}>
             Sign Up
         </Button>
         </Form>

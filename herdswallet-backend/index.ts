@@ -2,11 +2,12 @@ import express from "express";
 import { registerRoutes } from "./src/routes";
 import Database from "./src/database/database";
 import bodyParser from 'body-parser';
+const cors = require('cors');
 
 const startServer = async () => {
     // Create a new Express application.
     const app: express.Express = express();
-
+    app.use(cors());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }))
 
