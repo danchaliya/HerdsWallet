@@ -33,14 +33,28 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
     }
     setValidated(true);
 
-    axios.post("http://localhost:7002/register", {
-        username: username,
-        email: email,
-        password: password,
-        firstName: firstName,
-        lastName: lastName,
-        phoneNumber: phone
-    })
+    var bodyFormData = new FormData();
+    bodyFormData.append('username', username);
+    bodyFormData.append('email', email);
+    bodyFormData.append('password', password);
+    bodyFormData.append('firstName', firstName);
+    bodyFormData.append('lastName', lastName);
+    bodyFormData.append('phoneNumber', phone);
+
+    // axios.post('http://localhost:7002/register', {
+    //     username: username,
+    //     email: email,
+    //     password: password,
+    //     firstName: firstName,
+    //     lastName: lastName,
+    //     phoneNumber: phone
+    // })
+    axios({
+        method: "post",
+        url: 'http://localhost:7002/register',
+        data: bodyFormData,
+        headers: { "Content-Type": "multipart/form-data" },
+      })
         .then(response => {
             console.log("POST success!");
             console.log(response)
