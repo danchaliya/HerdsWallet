@@ -17,7 +17,7 @@ function LoginForm() {
       };
     
   return (
-    <Container>
+    <Container className='shrunk-form'>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formUserLogin">
             <Form.Label>Username</Form.Label>

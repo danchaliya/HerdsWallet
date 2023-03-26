@@ -1,16 +1,22 @@
+import '../../styles/forms.scss'
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/esm/Container';
+import axios from 'axios';
 
 function SetUpForm() {
-const [validated, setValidated] = useState(false);
+const [firstName, setFirstName] = useState('');
+const [lastName, setLastName] = useState('');
 const [email, setEmail] = useState('');
-const [isEmailValidated, setEmailValidation] = useState(false);
+const [username, setUsername] = useState('');
 const [password, setPassword] = useState('');
+const [phone, setPhone] = useState('');
+
+const [validated, setValidated] = useState(false);
+const [isEmailValidated, setEmailValidation] = useState(false);
 const [isPasswordInvalid, setPasswordInvalidation] = useState(true);
 const [isPasswordValid, setPasswordValidation] = useState(false);
-const [phone, setPhone] = useState('');
 const [isPhoneInvalid, setPhoneInvalidation] = useState(true);
 const [isPhoneValid, setPhoneValidation] = useState(false)
 
@@ -26,6 +32,23 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
       event.stopPropagation();
     }
     setValidated(true);
+
+    axios.post("http://localhost:7002/register", {
+        username: username,
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phone
+    })
+        .then(response => {
+            console.log("POST success!");
+            console.log(response)
+        })
+        .catch(error => {
+            console.log("POST failed!");
+            console.log(error)
+        })
   };
 
 //   const handleEmailChange = (event) => {
@@ -49,8 +72,6 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
 
   const validatePassword = () => {
     console.log(password)
-    // const passRegex = /^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=[^!#%]*[!#%])[A-Za-z0-9!#%]{8,}$/;
-    // const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
     const passRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
     if (!passRegex.test(password) || password === '') {
         setPasswordValidation(false);
@@ -79,25 +100,33 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
 
 
   return (
-    <Container>
+    <Container className='shrunk-form'>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formFirstName">
+            <Form.Group className="mb-3" controlId="firstName">
                 <Form.Label>First Name</Form.Label>
-                <Form.Control required type="text"/>
+                <Form.Control
+                    required
+                    type="text"
+                    value={firstName}
+                    onChange={event => {setFirstName(event.target.value)}}/>
                 <Form.Control.Feedback type='invalid'>
                     First name is required.
                 </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formLastName">
+        <Form.Group className="mb-3" controlId="lastName">
                 <Form.Label>Last Name</Form.Label>
-                <Form.Control required type="text"/>
+                <Form.Control
+                    required
+                    type="text"
+                    value={lastName}
+                    onChange={event => {setLastName(event.target.value)}}/>
                 <Form.Control.Feedback type='invalid'>
                     Last name is required.
                 </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formEmail">
+        <Form.Group className="mb-3" controlId="email">
             <Form.Label>Email Address</Form.Label>
             <Form.Control
                 required
@@ -110,15 +139,19 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
             </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formUsername">
+        <Form.Group className="mb-3" controlId="username">
             <Form.Label>Username</Form.Label>
-            <Form.Control required type="text"/>
+            <Form.Control
+                required
+                type="text"
+                value={username}
+                onChange={event => {setUsername(event.target.value)}}/>
             <Form.Control.Feedback type='invalid'>
                 Username is required.
             </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="password">
             <Form.Label>Password</Form.Label>
             <Form.Control
                 required
@@ -140,7 +173,7 @@ const [isPhoneValid, setPhoneValidation] = useState(false)
             </Form.Text>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formPhone">
+        <Form.Group className="mb-3" controlId="phoneNumber">
             <Form.Label>Phone Number</Form.Label>
             <Form.Control
                 required
