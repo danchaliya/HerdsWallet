@@ -10,12 +10,16 @@ const [isEmailValidated, setEmailValidation] = useState(false);
 const [password, setPassword] = useState('');
 const [isPasswordInvalid, setPasswordInvalidation] = useState(true);
 const [isPasswordValid, setPasswordValidation] = useState(false);
+const [phone, setPhone] = useState('');
+const [isPhoneInvalid, setPhoneInvalidation] = useState(true);
+const [isPhoneValid, setPhoneValidation] = useState(false)
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
 
     validateEmail();
     validatePassword();
+    validatePhone();
 
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -44,7 +48,6 @@ const [isPasswordValid, setPasswordValidation] = useState(false);
 //   } 
 
   const validatePassword = () => {
-    // setPassword(input)
     console.log(password)
     // const passRegex = /^(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])(?=\D*\d)(?=[^!#%]*[!#%])[A-Za-z0-9!#%]{8,}$/;
     // const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
@@ -56,6 +59,20 @@ const [isPasswordValid, setPasswordValidation] = useState(false);
     } else {
         setPasswordValidation(true);
         setPasswordInvalidation(false);
+        console.log("val success")
+    }
+  }
+
+  const validatePhone = () => {
+    // const phoneRegex = /[0-9]{0,10}$/
+    const phoneRegex = /^\d{9}/
+    if (!phoneRegex.test(phone) || phone === '' || phone.length < 10) {
+        setPhoneValidation(false);
+        setPhoneInvalidation(true);
+        console.log("val fail")
+    } else {
+        setPhoneValidation(true);
+        setPhoneInvalidation(false);
         console.log("val success")
     }
   }
@@ -122,7 +139,28 @@ const [isPasswordValid, setPasswordValidation] = useState(false);
             Minimum of 8 characters, one number, one capital letter, one special character
             </Form.Text>
         </Form.Group>
-        
+
+        <Form.Group className="mb-3" controlId="formPhone">
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control
+                required
+                value={phone}
+                type="text"
+                isValid={isPhoneValid}
+                isInvalid={isPhoneInvalid}
+                onChange={event => {setPhone(event.target.value); console.log(phone); validatePhone()}}
+            />
+            <Form.Control.Feedback type='invalid'>
+                Enter a 10-digit phone number.
+            </Form.Control.Feedback>
+            <Form.Control.Feedback type='valid'>
+                Phone number meets requirements!
+            </Form.Control.Feedback>
+            <Form.Text className="text-muted">
+                Please only enter numbers
+            </Form.Text>
+        </Form.Group>
+
         <Button variant="primary" type="submit">
             Sign Up
         </Button>

@@ -11,7 +11,7 @@ function BrandNavbar() {
   function LoggedInLinks()
   {
     return <Nav>
-          <Link to={"/signup"}>Log out</Link>
+      <Link to={"/signup"}>Log out</Link>
     </Nav>
   
   }
@@ -19,8 +19,8 @@ function BrandNavbar() {
   function NotLoggedInLinks()
   {
     return <Nav>
-          <Link to={"/login"}>Log In</Link>
-          <Link to={"/signup"}>Sign Up</Link>
+      <Link to={"/login"}>Log In</Link>
+      <Link to={"/signup"}>Sign Up</Link>
     </Nav>
     
   }
@@ -29,9 +29,9 @@ function BrandNavbar() {
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">   {/* works without link, dont change */}
             <img
-              alt=""
+              alt="navbar_logo"
               src={logo}
               width="30"
               height="30"
