@@ -1,13 +1,17 @@
 import express from "express";
 import { registerRoutes } from "./src/routes";
 import Database from "./src/database/database";
+import bodyParser from 'body-parser';
 
 const startServer = async () => {
     // Create a new Express application.
     const app: express.Express = express();
-  
-    // Register the application routes.
+
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }))
+
     registerRoutes(app);
+
      // Create a new Database instance.
     const db = new Database();
 

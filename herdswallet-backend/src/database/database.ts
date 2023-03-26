@@ -1,8 +1,15 @@
 import { Sequelize } from 'sequelize';
-import { User, userInit, Expense, expenseInit } from "../models";
+import { Users, usersInit, Expense, expenseInit } from "../models";
 
 // Create a new Sequelize instance with the connection URL from the environment variables.
-const sequelize = new Sequelize(process.env.DATABASE_URL as string);
+const sequelize = new Sequelize(process.env.DATABASE_URL as string, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      rejectUnauthorized: false
+    }
+  }
+});
 
 class Database {
   // Declare a connection property that will store the Sequelize instance after connecting.
@@ -10,7 +17,7 @@ class Database {
 
   // Declare a tables object that maps table names to Sequelize model classes.
   public tables = {
-    user: User,
+    users: Users,
     expense: Expense, // fixed typo: changed "expnse" to "expense"
   };
 
@@ -25,12 +32,12 @@ class Database {
       console.log("Connection has been established successfully.");
 
       // Initialize the database models with the Sequelize instance.
-      userInit(this.connection);
+      usersInit(this.connection);
       expenseInit(this.connection);
 
       // Define associations between the models.
-      User.hasMany(Expense, { foreignKey: 'id' });
-      Expense.belongsTo(User, { foreignKey: 'id' });
+      Users.hasMany(Expense, { foreignKey: 'id' });
+      Expense.belongsTo(Users, { foreignKey: 'id' });
 
       // Synchronize the models with the database schema.
       await this.connection.sync({ alter: true });
