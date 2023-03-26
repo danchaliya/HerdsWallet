@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../images/bull.png"
 
 function BrandNavbar() {
