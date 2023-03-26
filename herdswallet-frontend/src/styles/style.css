@@ -1,0 +1,26 @@
+.centeredText{
+
+    text-align: center;
+    margin: 4rem;
+
+}
+
+.pText {
+
+    margin-left: 20%;
+    margin-right: 20%;
+
+}
+
+.logo
+{
+    
+    width: 300px;
+    height: 300px; 
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display:block;
+    border-radius: 100px;
+
+}

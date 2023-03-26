@@ -2,7 +2,11 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Link } from "react-router-dom";
-import logo from "../images/bull.png"
+import logo from "../images/bull.png";
+import {GiEntryDoor, GiExitDoor} from "react-icons/gi";
+import {BsFillPenFill} from "react-icons/bs";
+import Button from 'react-bootstrap/Button';
+import "../styles/icons.css";
 
 function BrandNavbar() {
 
@@ -11,7 +15,11 @@ function BrandNavbar() {
   function LoggedInLinks()
   {
     return <Nav>
-      <Link to={"/signup"}>Log out</Link>
+      <Button>
+        <Link to={"/"}>
+          <GiExitDoor/>
+        </Link>
+      </Button>
     </Nav>
   
   }
@@ -19,8 +27,18 @@ function BrandNavbar() {
   function NotLoggedInLinks()
   {
     return <Nav>
-      <Link to={"/login"}>Log In</Link>
-      <Link to={"/signup"}>Sign Up</Link>
+      <Link to={"/login"}>
+        <Button variant='primary' className="button">
+          <GiEntryDoor/> Log in
+        </Button>
+      </Link>
+      &nbsp;
+      &nbsp;
+      <Link to={"/signup"}>
+        <Button variant='primary' className="button">
+          <BsFillPenFill/> Sign Up
+        </Button>      
+      </Link>
     </Nav>
     
   }

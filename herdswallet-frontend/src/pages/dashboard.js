@@ -27,7 +27,7 @@ export default function Dashboard() {
 
             <Container>
                 {/* todo dynamic rendering w grid */}
-                <CategoryCard name="shawty" amount = "300"/>
+                <CategoryCard name="Groceries" amount = "$30.67"/>
             </Container>
 
             {showForm && <LogExpenseForm/>}
